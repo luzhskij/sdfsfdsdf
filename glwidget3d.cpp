@@ -53,58 +53,8 @@ void GLWidget3D::paintGL()
 	glLoadIdentity();
 	m_camera.prepareCamera();
 	
-
 	glCallList(glList);
-
 	glFlush();
-
-
-/*	GLfloat position[] = { 0.0, 0.0, 10000, 1.0 };
-
-	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	const GLfloat movx = 148000.0;
-	const GLfloat movy = 88000.0;
-	const GLfloat movz = -2400.0;
-	const GLfloat size = 10000;
-	const GLfloat movx = 0;
-	const GLfloat movy = 0;
-	const GLfloat movz = 0;
-	const GLfloat size = 3;
-//	gluLookAt (movx, movy, movz, movx, movy, movz+10000.0, 0.0, 1.0, 0.0);
-	
-	glLoadIdentity();
-//	glTranslatef (-movx, -movy, -movz);
-	
-	glRotatef ((GLfloat) spin, 1.0, 0.0, 0.0);
-	glTranslatef (0, 0, -size*3);
-
-	
-	glPushMatrix ();
-	glRotated ((GLdouble) spin, 1.0, 0.0, 0.0);
-//	glTranslatef (m_camera.x(), m_camera.y(), m_camera.z()/m_camera.zScale());
-	glTranslatef (-movx, -movy, -movz);
-	glLightfv (GL_LIGHT0, GL_POSITION, position);
-
-	glPopMatrix ();
-	
-
-	GLfloat x1 = movx-size;
-	GLfloat y1 = movy-size;
-	GLfloat x2 = movx+size;
-	GLfloat y2 = movy+size;
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glBegin(GL_QUADS);
-	glColor3f(0.2f, 0.8f, 1.f);
-	glVertex3f(x1, y1, movz);
-	glVertex3f(x2, y1, movz);
-	glVertex3f(x2, y2, movz);
-	glVertex3f(x1, y2, movz);
-	glEnd();
-//	glCallList(glList);	
-
-	glFlush ();*/
-
 }
 
 void GLWidget3D::resizeGL(int width, int height)
@@ -113,7 +63,6 @@ void GLWidget3D::resizeGL(int width, int height)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective (45, dAspect, 100, 1000000.);
-//	gluPerspective(40.0, (GLfloat) width/(GLfloat) height, 1.0, 20.0);
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();	this->width = width;
@@ -124,9 +73,6 @@ void GLWidget3D::mousePressEvent(QMouseEvent *event)
 {
     lastPos = event->pos();
 	mousePressed = true;
-/*	if (event->buttons() & Qt::MidButton) //Rotate object
-		spin = (spin + 30) % 360;
-	updateGL();*/
 }
 
 void GLWidget3D::mouseMoveEvent(QMouseEvent *event)
@@ -146,7 +92,6 @@ void GLWidget3D::mouseMoveEvent(QMouseEvent *event)
 		m_camera.moveRadial(m_dy);
     else if (event->buttons() & Qt::MidButton)  // Move object
 		m_camera.move(lastPos, event->pos(), height);
-// 		int yyy=8;
 
 	lastPos = event->pos();
 	updateGL();
