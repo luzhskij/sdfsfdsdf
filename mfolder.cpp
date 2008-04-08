@@ -9,7 +9,6 @@
 MFolder::MFolder(QString name) :
 		MObject(name)
 {
-
 }
 
 
