@@ -30,7 +30,7 @@ void MFolder::setChecked(bool checkState, bool recursive)
 
 QIcon MFolder::icon() const
 {
-	return QIcon( "Images/folder.png" );
+	return QIcon( "images/folder.png" );
 }
 
 void MFolder::render(Renderer *renderer)
