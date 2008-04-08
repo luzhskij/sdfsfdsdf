@@ -43,9 +43,17 @@ SOURCES += glwidget3d.cpp \
  mmodelproperty.cpp \
  mwell.cpp
 RESOURCES += geoid.qrc
-QT += opengl
+QT += core gui opengl
 OBJECTS_DIR = tmp
 MOC_DIR = tmp
 UI_DIR = tmp
 RCC_DIR = tmp
+DESTDIR = bin
 CONFIG += debug_and_release build_all
+win32 {
+TARGET = Geoid
+CONFIG -= debug_and_release
+}
+unix {
+TARGET = geoid
+}

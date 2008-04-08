@@ -1,4 +1,5 @@
 <RCC>
-	<qresource prefix="Modeler">
+	<qresource prefix="Geoid">
+	<file alias="images/folder.png">images/folder.png</file>
 	</qresource>
 </RCC>
