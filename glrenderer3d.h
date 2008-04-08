@@ -6,7 +6,7 @@
 #ifndef GLRENDERER3D_H
 #define GLRENDERER3D_H
 
-#include <renderer.h>
+#include "renderer.h"
 
 class GLRenderer3D : public Renderer
 {
