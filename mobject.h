@@ -7,6 +7,7 @@
 #define MOBJECT_H
 
 #include <QString>
+#include <QColor>
 #include <GL/gl.h>
 
 #include "treeitem.h"
@@ -27,11 +28,15 @@ class MObject : public TreeItem
 		double maxY() const;
 		double minZ() const;
 		double maxZ() const;
+
 		GLuint glDisplayList() const { return m_glDisplayList; }
 		void newGlList();
 		//void setGlDisplayList(GLuint glDisplaylist) { m_glDisplayList = glDisplayList; }
 		void flushGlList();
-
+		
+		QColor color() const { return m_color; }
+		void setColor(QColor color)  { m_color = color; }
+		
 		virtual void render(Renderer*) = 0;
 		virtual void draw(Renderer *renderer) = 0;
 		virtual ObjectType type() const = 0;
@@ -42,6 +47,9 @@ class MObject : public TreeItem
 	protected:
 		double m_minX, m_maxX, m_minY, m_maxY, m_minZ, m_maxZ;
 		GLuint m_glDisplayList;
+
+	private:
+		QColor m_color;
 };
 
 /*****************************************************************************

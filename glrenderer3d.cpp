@@ -162,7 +162,10 @@ void GLRenderer3D::render(MWell* well)
 			vertices[i*3+2] = (GLfloat) well->nodes().at(i).z;
 			indices[i] = i;
 		}
-		glColor3ub(255, 255, 255);
+		GLubyte red = well->color().red();
+		GLubyte green = well->color().green();
+		GLubyte blue = well->color().blue();
+		glColor3ub(red, green, blue);
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, vertices);
 		glDrawElements(GL_LINE_STRIP, wellSize, GL_UNSIGNED_INT, indices);

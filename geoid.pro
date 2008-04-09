@@ -8,7 +8,7 @@ DEPENDPATH += . tmp
 DESTDIR = bin
 
 unix {
-CONFIG += debug_and_release build_all
+    CONFIG += debug_and_release build_all
 }
 
 HEADERS += glwidget3d.h \
@@ -32,7 +32,8 @@ HEADERS += glwidget3d.h \
  borderstruct.h \
  mfolder.h \
  mmodelproperty.h \
- mwell.h
+ mwell.h \
+ mcolorgenerator.h
 FORMS += modeler.ui newgrid.ui
 SOURCES += glwidget3d.cpp \
  main.cpp \
@@ -52,5 +53,6 @@ SOURCES += glwidget3d.cpp \
  treeitem.cpp \
  mfolder.cpp \
  mmodelproperty.cpp \
- mwell.cpp
+ mwell.cpp \
+ mcolorgenerator.cpp
 RESOURCES += geoid.qrc

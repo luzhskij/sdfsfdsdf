@@ -21,6 +21,8 @@
 #include "mwell.h"
 #include "treeitem.h"
 
+#include "mcolorgenerator.h"
+
 Modeler::Modeler(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
@@ -93,7 +95,9 @@ void Modeler::on_actionAdd_wells_triggered()
 
 	QTextStream in(&file);
 	in.setCodec("CP-1251");
-
+	
+	MColorGenerator colorGenerator;
+	
 	MFolder *wellFolder = new MFolder(MObject::getFileName(fileName));
 	MWell *newWell = NULL;
 	QString line = in.readLine();
@@ -103,6 +107,7 @@ void Modeler::on_actionAdd_wells_triggered()
 		if (line.at(0) == QChar('*')) // checks whether first char at the line in is "*" which is a marker of a new well
 		{
 			newWell = new MWell(line.mid(1, line.length()-2));
+			newWell->setColor(colorGenerator.getNewColor());
 			line = in.readLine();
 		}
 		QStringList list = line.split(";");

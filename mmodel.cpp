@@ -104,17 +104,17 @@ MModelSkeleton::MModelSkeleton ( MModel *model, SkeletonType skeletonType ) :
 		case Top:
 			m_layer = 0;
 			setObjectName( QObject::tr("Top") );
-			m_color = QColor(30, 144, 255);
+			setColor( QColor(30, 144, 255) );
 			break;
 		case Middle:
 			m_layer = (int) round ((m_model->numZ()-1)/2);
 			setObjectName( QObject::tr("Middle") );
-			m_color = QColor(0, 255, 127);
+			setColor( QColor(0, 255, 127) );
 			break;
 		case Bottom:
 			m_layer = m_model->numZ()-1;
 			setObjectName( QObject::tr("Bottom") );
-			m_color = QColor(204, 255, 0);
+			setColor( QColor(204, 255, 0) );
 			break;
 	}
 }

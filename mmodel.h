@@ -6,8 +6,6 @@
 #ifndef MMODEL_H
 #define MMODEL_H
 
-#include <QColor>
-
 #include "mfolder.h"
 
 class MGrid;
@@ -65,7 +63,6 @@ class MModelSkeleton : public MObject
 		ObjectType type() const { return MObject::ModelSkeleton; }
 		int layer() const { return m_layer; }
 		MModel *model() const { return m_model; }
-		const QColor &color() const { return m_color; }
 
 		virtual void render(Renderer*);
 		virtual void draw(Renderer *renderer);
@@ -74,7 +71,6 @@ class MModelSkeleton : public MObject
 		int m_layer;
 		SkeletonType m_skeletonType;
 		MModel *m_model;
-		QColor m_color;
 };
 
 class MModelPropertiesContainer : public MFolder

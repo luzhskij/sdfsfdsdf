@@ -9,11 +9,12 @@
 MFolder::MFolder(QString name) :
 		MObject(name)
 {
-}
 
+}
 
 MFolder::~MFolder()
 {
+
 }
 
 void MFolder::setChecked(bool checkState, bool recursive)
