@@ -19,6 +19,8 @@ class MWell : public MObject
 	public:
 		MWell(QString name = QString());
 		~MWell();
+		
+		void finalize();	//checks if well z-coordinates are not negative - if they are, inverts them
 
 		virtual void render(Renderer*);
 		virtual void draw(Renderer *renderer);
@@ -27,6 +29,7 @@ class MWell : public MObject
 		const QVector<WellNode> &nodes() const { return m_wellNodes; }
 		void addNode(WellNode node);
 		void reCalculateBorders();
+		
 
 	private:
 		QVector<WellNode> m_wellNodes;

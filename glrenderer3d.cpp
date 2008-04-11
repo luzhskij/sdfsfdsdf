@@ -97,6 +97,8 @@ void GLRenderer3D::render(MModelSkeleton *skeleton)
 		UINT numX = model->numX();
 		UINT numY = model->numY();
 		
+		GLuint index = skeleton->glDisplayList();
+		
 		vertices = new GLfloat[numX*numY*3];
 		UINT k = skeleton->layer();
 		for (UINT j = 0; j < numY; j++)
@@ -148,12 +150,11 @@ void GLRenderer3D::render(MWell* well)
 	{
 		glNewList(well->glDisplayList(), GL_COMPILE);
 		
-		GLfloat *vertices;
-		GLuint *indices;
+		GLuint index = well->glDisplayList();
 		
 		GLuint wellSize = well->nodes().size();
-		vertices = new GLfloat[wellSize*3];
-		indices = new GLuint[wellSize];
+		GLfloat *vertices = new GLfloat[wellSize*3];
+		GLuint *indices = new GLuint[wellSize];
 		
 		for (GLuint i = 0; i < wellSize; i++)
 		{
@@ -169,10 +170,10 @@ void GLRenderer3D::render(MWell* well)
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, vertices);
 		glDrawElements(GL_LINE_STRIP, wellSize, GL_UNSIGNED_INT, indices);
-
+		
 		delete[] vertices;
 		delete[] indices;
-
+		
 		glEndList();
 	}
 }

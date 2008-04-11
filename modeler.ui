@@ -189,13 +189,6 @@
     <property name="title" >
      <string>File</string>
     </property>
-    <addaction name="action_2" />
-    <addaction name="separator" />
-    <addaction name="action_3" />
-    <addaction name="action_4" />
-    <addaction name="action_5" />
-    <addaction name="separator" />
-    <addaction name="action_6" />
    </widget>
    <widget class="QMenu" name="menu_2" >
     <property name="title" >

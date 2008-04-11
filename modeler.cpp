@@ -125,7 +125,7 @@ void Modeler::on_actionAdd_wells_triggered()
 			wellNode.h = list.at(1).toDouble();
 			wellNode.x = list.at(2).toDouble();
 			wellNode.y = list.at(3).toDouble();
-			wellNode.z = -list.at(4).toDouble();	//XYZ - contains inverted valuse of z coordinate
+			wellNode.z = list.at(4).toDouble();
 			newWell->addNode(wellNode);
 			line = in.readLine();
 		}
@@ -133,12 +133,18 @@ void Modeler::on_actionAdd_wells_triggered()
 		if (in.atEnd())
 		{
 			if (!deleted)
+			{
+				newWell->finalize();
 				wellFolder->appendChild(newWell);
+			}
 		}
 		else
 		{
 			if ( line.at(0) == QChar('*') && !deleted )  // new well found - adding previous well to the list	
+			{
+				newWell->finalize();
 				wellFolder->appendChild(newWell);
+			}
 		}
 	}
 	

@@ -12,10 +12,16 @@ MWell::MWell(QString name) :
 
 }
 
-
 MWell::~MWell()
 {
 
+}
+
+void MWell::finalize()
+{
+	if (m_wellNodes.last().z > 0)
+		for (int i = 0; i<m_wellNodes.size(); i++)
+			m_wellNodes[i].z = -m_wellNodes[i].z;
 }
 
 void MWell::render( Renderer* renderer )
