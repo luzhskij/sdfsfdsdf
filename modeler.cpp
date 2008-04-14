@@ -6,7 +6,6 @@
 #include <QMessageBox>
 #include <QTextCodec>
 #include <QFileDialog>
-#include <QTextStream>
 
 #include "treemodel.h"
 #include "modeler.h"
@@ -21,7 +20,6 @@
 #include "mwell.h"
 #include "treeitem.h"
 
-#include "mcolorgenerator.h"
 
 Modeler::Modeler(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
@@ -84,70 +82,11 @@ void Modeler::on_newGridAction_triggered()
 
 void Modeler::on_actionAdd_wells_triggered()
 {
-	// Reading XYZ file format which contains data about well geometry
 	QString fileName = QFileDialog::getOpenFileName(this, tr("Open well coordinates file"),
 			"",
 			tr("XYZ files (*.xyz)"));
 
-	QFile file(fileName);
-	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-		return;
-
-	QTextStream in(&file);
-	in.setCodec("CP-1251");
-	
-	MColorGenerator colorGenerator;
-	
-	MFolder *wellFolder = new MFolder(MObject::getFileName(fileName));
-	MWell *newWell = NULL;
-	QString line = in.readLine();
-	while (!in.atEnd())
-	{
-		bool deleted = false;
-		if (line.at(0) == QChar('*')) // checks whether first char at the line in is "*" which is a marker of a new well
-		{
-			newWell = new MWell(line.mid(1, line.length()-2));
-			newWell->setColor(colorGenerator.getNewColor());
-			line = in.readLine();
-		}
-		QStringList list = line.split(";");
-		if (list.at(4) == "")	//checking whether altitude, i.e. z coordinate is empty - in this case we are not able to deal with the well, so skipping such wells
-		{
-			delete newWell;
-			deleted = true;
-			line = in.readLine();
-			while (!in.atEnd() && line.at(0) != QChar('*'))	//checking for the new well
-				line = in.readLine();
-		}
-		else	//filling well-object with geometry information
-		{
-			WellNode wellNode;
-			wellNode.h = list.at(1).toDouble();
-			wellNode.x = list.at(2).toDouble();
-			wellNode.y = list.at(3).toDouble();
-			wellNode.z = list.at(4).toDouble();
-			newWell->addNode(wellNode);
-			line = in.readLine();
-		}
-		
-		if (in.atEnd())
-		{
-			if (!deleted)
-			{
-				newWell->finalize();
-				wellFolder->appendChild(newWell);
-			}
-		}
-		else
-		{
-			if ( line.at(0) == QChar('*') && !deleted )  // new well found - adding previous well to the list	
-			{
-				newWell->finalize();
-				wellFolder->appendChild(newWell);
-			}
-		}
-	}
-	
+	MFolder *wellFolder = MWell::readFromXYZ(fileName);
 	objectsModel->add(wellFolder);
 	
 	drawScene();

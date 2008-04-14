@@ -7,7 +7,7 @@
 #define MWELL_H
 
 #include <QVector>
-#include "mobject.h"
+#include "mfolder.h"
 
 struct WellNode
 {
@@ -29,7 +29,8 @@ class MWell : public MObject
 		const QVector<WellNode> &nodes() const { return m_wellNodes; }
 		void addNode(WellNode node);
 		void reCalculateBorders();
-		
+
+		static MFolder *readFromXYZ(QString fileName); 	// Reads XYZ file format which contains data about well geometry
 
 	private:
 		QVector<WellNode> m_wellNodes;

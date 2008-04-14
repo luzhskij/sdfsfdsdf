@@ -3,8 +3,12 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  */
 
+#include <QTextStream>
+#include <QFile>
+
 #include "mwell.h"
 #include "renderer.h"
+#include "mcolorgenerator.h"
 
 MWell::MWell(QString name) :
 		MObject(name)
@@ -74,4 +78,67 @@ void MWell::addNode(WellNode node)
 		m_minZ = m_minZ < m_wellNodes.last().z ? m_minZ : m_wellNodes.last().z;
 		m_maxZ = m_maxZ > m_wellNodes.last().z ? m_maxZ : m_wellNodes.last().z;
 	}
+}
+
+MFolder *MWell::readFromXYZ(QString fileName)
+{
+	QFile file(fileName);
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+		return;
+
+	QTextStream in(&file);
+	in.setCodec("CP-1251");
+	
+	MColorGenerator colorGenerator;
+	
+	MFolder *wellFolder = new MFolder(MObject::getFileName(fileName));
+	MWell *newWell = NULL;
+	QString line = in.readLine();
+	while (!in.atEnd())
+	{
+		bool deleted = false;
+		if (line.at(0) == QChar('*')) // checks whether first char at the line in is "*" which is a marker of a new well
+		{
+			newWell = new MWell(line.mid(1, line.length()-2));
+			newWell->setColor(colorGenerator.getNewColor());
+			line = in.readLine();
+		}
+		QStringList list = line.split(";");
+		if (list.at(4) == "")	//checking whether altitude, i.e. z coordinate is empty - in this case we are not able to deal with the well, so skipping such wells
+		{
+			delete newWell;
+			deleted = true;
+			line = in.readLine();
+			while (!in.atEnd() && line.at(0) != QChar('*'))	//checking for the new well
+				line = in.readLine();
+		}
+		else	//filling well-object with geometry information
+		{
+			WellNode wellNode;
+			wellNode.h = list.at(1).toDouble();
+			wellNode.x = list.at(2).toDouble();
+			wellNode.y = list.at(3).toDouble();
+			wellNode.z = list.at(4).toDouble();
+			newWell->addNode(wellNode);
+			line = in.readLine();
+		}
+		
+		if (in.atEnd())
+		{
+			if (!deleted)
+			{
+				newWell->finalize();
+				wellFolder->appendChild(newWell);
+			}
+		}
+		else
+		{
+			if ( line.at(0) == QChar('*') && !deleted )  // new well found - adding previous well to the list	
+			{
+				newWell->finalize();
+				wellFolder->appendChild(newWell);
+			}
+		}
+	}
+	return wellFolder;
 }
