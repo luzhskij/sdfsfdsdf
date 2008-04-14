@@ -73,7 +73,11 @@ void GLRenderer3D::render(MGrid* grid)
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glColorPointer(3, GL_FLOAT, 0, colors);
 		glVertexPointer(3, GL_FLOAT, 0, vertices);
+		
 		glDrawElements(GL_QUADS, numOfQuads*4, GL_UNSIGNED_INT, indices);
+		
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
 			
 		delete[] vertices;
 		delete[] colors;
@@ -130,11 +134,14 @@ void GLRenderer3D::render(MModelSkeleton *skeleton)
 		GLubyte red = skeleton->color().red();
 		GLubyte green = skeleton->color().green();
 		GLubyte blue = skeleton->color().blue();
-		glColor3ub(red, green, blue);
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, vertices);
+		
+		glColor3ub(red, green, blue);
+		
 		glDrawElements(GL_LINES, numOfLines*2, GL_UNSIGNED_INT, indices);
-
+		glDisableClientState(GL_VERTEX_ARRAY);
+		
 		delete[] vertices;
 		delete[] indices;
 
@@ -166,10 +173,12 @@ void GLRenderer3D::render(MWell* well)
 		GLubyte red = well->color().red();
 		GLubyte green = well->color().green();
 		GLubyte blue = well->color().blue();
-		glColor3ub(red, green, blue);
+		
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, vertices);
+		glColor3ub(red, green, blue);
 		glDrawElements(GL_LINE_STRIP, wellSize, GL_UNSIGNED_INT, indices);
+		glDisableClientState(GL_VERTEX_ARRAY);
 		
 		delete[] vertices;
 		delete[] indices;
@@ -177,6 +186,7 @@ void GLRenderer3D::render(MWell* well)
 		glEndList();
 	}
 }
+
 void GLRenderer3D::render(MModelDiscreteProperty* property)
 {
 	property->newGlList();
@@ -675,6 +685,8 @@ void GLRenderer3D::render(MModelDiscreteProperty* property)
 		glColorPointer(3, GL_UNSIGNED_BYTE, 0, colors);
 		glVertexPointer(3, GL_FLOAT, 0, vertices);
 		glDrawElements(GL_QUADS, numOfQuads*4, GL_UNSIGNED_INT, indices);
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
 
 		delete[] vertices;
 		delete[] colors;
@@ -745,6 +757,7 @@ void GLRenderer3D::render(MModel* model)
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glDrawElements(GL_LINES, numOfLines*2, GL_UNSIGNED_INT, indices);
+	glDisableClientState(GL_VERTEX_ARRAY);
 		
 	delete[] vertices;
 	delete[] indices;
