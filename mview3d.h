@@ -21,7 +21,7 @@ class MView3D : public MAbstractView
 		virtual void draw();
 		virtual Renderer *renderer() const;
 		virtual QWidget *widget() const;
-		void calculateBorders();
+		virtual void calculateBorders();
 		
 	private:
 		GLRenderer3D *m_glRenderer3D;

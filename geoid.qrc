@@ -1,5 +1,5 @@
 <RCC>
-	<qresource prefix="Geoid">
-	<file alias="images/folder.png">images/folder.png</file>
-	</qresource>
+<qresource>
+	<file>images/folder.png</file>
+</qresource>
 </RCC>

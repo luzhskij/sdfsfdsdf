@@ -9,6 +9,17 @@ struct BorderStruct
 {
 	double minX, maxX, minY, maxY, minZ, maxZ;
 	bool atLeastOne;
+	
+	void flush()
+	{
+		atLeastOne = false;
+		minX = 0;
+		maxX = 0;
+		minY = 0;
+		maxY = 0;
+		minZ = 0;
+		maxZ = 0;
+	}
 };
 
 #endif

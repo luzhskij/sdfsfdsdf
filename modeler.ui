@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Modeler</string>
+   <string>Geoid</string>
   </property>
   <widget class="QWidget" name="centralWidget" >
    <layout class="QVBoxLayout" >
@@ -253,7 +253,7 @@
   </action>
   <action name="action_7" >
    <property name="text" >
-    <string>Modeler Help</string>
+    <string>Geoid Help</string>
    </property>
   </action>
   <action name="action_8" >

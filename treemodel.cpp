@@ -35,8 +35,10 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
 	{
 		item->setData(index.column(), role, value);
 		if (role == Qt::CheckStateRole)
+		{
+			m_currentView->calculateBorders();
 			m_currentView->draw();
-			
+		}
 		QModelIndex itemIndex = TreeModel::index(rootItem, 0);
 		emit dataChanged(itemIndex, itemIndex);
 		return true;
@@ -152,20 +154,6 @@ void TreeModel::add(MObject *object)
 void TreeModel::draw(Renderer *renderer)
 {
 	rootItem->draw(renderer);
-
-/*		GLfloat x1 = 557820;
-		GLfloat y1 = 5108010;
-		GLfloat x2 = 567600;
-		GLfloat y2 = 5121960;
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glBegin(GL_QUADS);
-		glColor3f(0.2f, 0.8f, 1.f);
-		glVertex3f(x1, y1, 0);
-		glVertex3f(x2, y1, 0);
-		glVertex3f(x2, y2, 0);
-		glVertex3f(x1, y2, 0);
-		glEnd();*/
-
 }
 
 void TreeModel::calculateBorders(BorderStruct &borders)

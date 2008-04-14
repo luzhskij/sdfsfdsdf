@@ -41,6 +41,6 @@ QWidget *MView3D::widget() const
 
 void MView3D::calculateBorders()
 {
-	m_glWidget3D->camera().borders().atLeastOne = false;
+	m_glWidget3D->camera().borders().flush();
 	treeModel()->calculateBorders(m_glWidget3D->camera().borders());
 }

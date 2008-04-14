@@ -87,7 +87,8 @@ void Modeler::on_actionAdd_wells_triggered()
 			tr("XYZ files (*.xyz)"));
 
 	MFolder *wellFolder = MWell::readFromXYZ(fileName);
-	objectsModel->add(wellFolder);
+	if (wellFolder != 0)
+		objectsModel->add(wellFolder);
 	
 	drawScene();
 }

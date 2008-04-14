@@ -30,7 +30,7 @@ void MFolder::setChecked(bool checkState, bool recursive)
 
 QIcon MFolder::icon() const
 {
-	return QIcon( "images/folder.png" );
+	return QIcon( ":/images/folder.png" );
 }
 
 void MFolder::render(Renderer *renderer)
@@ -53,5 +53,6 @@ void MFolder::calculateBorders(BorderStruct &borders)
 {
 	TreeItem *iterator;
 	foreach(iterator, children)
-		iterator->calculateBorders(borders);
+		if(iterator->isChecked())
+			iterator->calculateBorders(borders);
 }

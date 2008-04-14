@@ -19,6 +19,8 @@ class MAbstractView
 		virtual void draw() = 0;
 		virtual Renderer *renderer() const = 0;
 		virtual QWidget *widget() const = 0;
+		virtual void calculateBorders() = 0;
+		
 		TreeModel *treeModel() const { return m_treeModel; }
 
 	private:

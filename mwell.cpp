@@ -84,7 +84,7 @@ MFolder *MWell::readFromXYZ(QString fileName)
 {
 	QFile file(fileName);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-		return;
+		return 0;
 
 	QTextStream in(&file);
 	in.setCodec("CP-1251");
