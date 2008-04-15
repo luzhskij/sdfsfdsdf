@@ -55,11 +55,11 @@ private slots:
 	void on_importButton_clicked();
 	void on_radioImport_toggled(bool);
 	void on_radioCreate_toggled(bool);
-	void on_ComboChanged();
+	void onComboChanged();
 	void defineXCellSize();
 	void defineYCellSize();
-	void on_xSizeEdited();
-	void on_ySizeEdited();
+	void onXSizeEdited();
+	void onYSizeEdited();
 	void finishedXCellSize();
 	void finishedYCellSize();
 	void onAccepted();

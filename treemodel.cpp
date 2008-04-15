@@ -39,11 +39,9 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
 			m_currentView->calculateBorders();
 			m_currentView->draw();
 		}
-		QModelIndex itemIndex = TreeModel::index(rootItem, 0);
-		emit dataChanged(itemIndex, itemIndex);
+		emit dataChanged(QModelIndex(), QModelIndex());
 		return true;
 	}
-	
 	
 	return false;
 }
@@ -59,11 +57,7 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
 
 Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 {
-/*	Qt::ItemFlags flags = QAbstractItemModel::flags(index); 
-	if (index.column() == 0) 
-		flags |= Qt::ItemIsUserCheckable; 
-	return flags;*/
-	return (Qt::ItemIsDragEnabled|Qt::ItemIsSelectable|Qt::ItemIsEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsDropEnabled);
+	return Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsDropEnabled;
 }
 
 QVariant TreeModel::headerData(int section, Qt::Orientation orientation,
@@ -76,8 +70,7 @@ QVariant TreeModel::headerData(int section, Qt::Orientation orientation,
 }
 
 
-QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent)
-            const
+QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) const
 {
 	TreeItem *parentItem;
 
@@ -127,20 +120,9 @@ TreeItem *TreeModel::itemFromIndex(const QModelIndex &index) const
 		return rootItem;
 }
 
-QModelIndex TreeModel::index(const TreeItem *item, int column) const
-{
-	if (!item || (item == rootItem))
-		return QModelIndex();
-	const TreeItem *par = item->parent();
-	TreeItem *itm = const_cast<TreeItem*>(item);
-	if (!par)
-		par = rootItem;
-	return createIndex(par->children.lastIndexOf(itm), column, itm);
-}
-
 bool TreeModel::appendTopLevelItem(TreeItem *item) 
-{ 
-	beginInsertRows(index(rootItem, 0), rootItem->children.count(), rootItem->children.count());
+{
+	beginInsertRows(QModelIndex(), 0, 0);
 	rootItem->appendChild(item);
 	endInsertRows();
 	return true;

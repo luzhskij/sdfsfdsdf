@@ -89,14 +89,14 @@ void NewGrid::on_createButton_clicked()
 	{
 		if (validDataFile)
 		{
-			disconnect(ui.xCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(on_ComboChanged()));
-			disconnect(ui.yCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(on_ComboChanged()));
+			disconnect(ui.xCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onComboChanged()));
+			disconnect(ui.yCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onComboChanged()));
 			disconnect(ui.minXEdit, SIGNAL(textEdited(QString)), this, SLOT(defineXCellSize()));
 			disconnect(ui.maxXEdit, SIGNAL(textEdited(QString)), this, SLOT(defineXCellSize()));
 			disconnect(ui.minYEdit, SIGNAL(textEdited(QString)), this, SLOT(defineYCellSize()));
 			disconnect(ui.maxYEdit, SIGNAL(textEdited(QString)), this, SLOT(defineYCellSize()));
-			disconnect(ui.xSizeEdit, SIGNAL(textEdited(QString)), this, SLOT(on_xSizeEdited()));
-			disconnect(ui.ySizeEdit, SIGNAL(textEdited(QString)), this, SLOT(on_ySizeEdited()));
+			disconnect(ui.xSizeEdit, SIGNAL(textEdited(QString)), this, SLOT(onXSizeEdited()));
+			disconnect(ui.ySizeEdit, SIGNAL(textEdited(QString)), this, SLOT(onYSizeEdited()));
 			disconnect(ui.xSizeEdit, SIGNAL(editingFinished()), this, SLOT(finishedXCellSize()));
 			disconnect(ui.ySizeEdit, SIGNAL(editingFinished()), this, SLOT(finishedYCellSize()));
 			disconnect(ui.numXSpin, SIGNAL(valueChanged(int)), this, SLOT(defineXCellSize()));
@@ -170,14 +170,14 @@ void NewGrid::on_createButton_clicked()
 			}
 			dataTable.push_back(dataline);
 		}
-		connect(ui.xCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(on_ComboChanged()));
-		connect(ui.yCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(on_ComboChanged()));
+		connect(ui.xCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onComboChanged()));
+		connect(ui.yCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onComboChanged()));
 		connect(ui.minXEdit, SIGNAL(textEdited(QString)), this, SLOT(defineXCellSize()));
 		connect(ui.maxXEdit, SIGNAL(textEdited(QString)), this, SLOT(defineXCellSize()));
 		connect(ui.minYEdit, SIGNAL(textEdited(QString)), this, SLOT(defineYCellSize()));
 		connect(ui.maxYEdit, SIGNAL(textEdited(QString)), this, SLOT(defineYCellSize()));
-		connect(ui.xSizeEdit, SIGNAL(textEdited(QString)), this, SLOT(on_xSizeEdited()));
-		connect(ui.ySizeEdit, SIGNAL(textEdited(QString)), this, SLOT(on_ySizeEdited()));
+		connect(ui.xSizeEdit, SIGNAL(textEdited(QString)), this, SLOT(onXSizeEdited()));
+		connect(ui.ySizeEdit, SIGNAL(textEdited(QString)), this, SLOT(onYSizeEdited()));
 		connect(ui.xSizeEdit, SIGNAL(editingFinished()), this, SLOT(finishedXCellSize()));
 		connect(ui.ySizeEdit, SIGNAL(editingFinished()), this, SLOT(finishedYCellSize()));
 		connect(ui.numXSpin, SIGNAL(valueChanged(int)), this, SLOT(defineXCellSize()));
@@ -196,7 +196,7 @@ void NewGrid::on_createButton_clicked()
 	}
 }
 
-void NewGrid::on_ComboChanged()
+void NewGrid::onComboChanged()
 {
 	int fieldX = ui.xCombo->currentIndex();
 	int fieldY = ui.yCombo->currentIndex();
@@ -255,7 +255,7 @@ void NewGrid::defineYCellSize()
 	}
 }
 
-void NewGrid::on_xSizeEdited()
+void NewGrid::onXSizeEdited()
 {
 	xSizeEditing = true;
 	xSize = ui.xSizeEdit->text().toDouble();
@@ -265,7 +265,7 @@ void NewGrid::on_xSizeEdited()
 }
 
 
-void NewGrid::on_ySizeEdited()
+void NewGrid::onYSizeEdited()
 {
 	ySizeEditing = true;
 	ySize = ui.ySizeEdit->text().toDouble();

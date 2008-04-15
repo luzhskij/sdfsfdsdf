@@ -31,12 +31,10 @@ public:
                         int role = Qt::DisplayRole) const;
 	QModelIndex index(int row, int column,
                       const QModelIndex &parent = QModelIndex()) const;
-	QModelIndex index(const TreeItem *item, int column) const;
 
 	QModelIndex parent(const QModelIndex &index) const;
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
-	TreeItem *itemFromIndex(const QModelIndex &index) const;
 
 	bool appendTopLevelItem(TreeItem *item);
 	void add(MObject *object);
@@ -47,6 +45,8 @@ public:
 	void setCurrentView(MAbstractView *currentView);
 
 private:
+	TreeItem *itemFromIndex(const QModelIndex &index) const;
+	
 	TreeItem *rootItem;
 	MAbstractView *m_currentView;
 };
