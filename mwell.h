@@ -30,10 +30,28 @@ class MWell : public MObject
 		void addNode(WellNode node);
 		void reCalculateBorders();
 
-		static MFolder *readFromXYZ(QString fileName); 	// Reads XYZ file format which contains data about well geometry
-
 	private:
 		QVector<WellNode> m_wellNodes;
+};
+
+class MWellsDataContainer : public MFolder
+{
+	public:
+		MWellsDataContainer(QString fileName);
+		~MWellsDataContainer();
+};
+
+class MGlobalWellLogsFolder : public MFolder
+{
+	public:
+		MGlobalWellLogsFolder();
+		~MGlobalWellLogsFolder();
+		
+		virtual void render(Renderer *renderer) {}
+		virtual void draw(Renderer *renderer) {}
+		virtual void calculateBorders(BorderStruct &borders) {}
+		
+		virtual void setChecked(bool checkState, bool recursive);
 };
 
 #endif

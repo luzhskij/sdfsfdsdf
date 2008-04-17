@@ -12,7 +12,7 @@ class MFolder : public MObject
 {
 	public:
 		MFolder(QString name = QString());
-		~MFolder();
+		virtual ~MFolder();
 
 		virtual void render(Renderer *renderer);
 		virtual void draw(Renderer *renderer);

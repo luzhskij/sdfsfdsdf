@@ -31,11 +31,15 @@ class TreeItem
 
 		TreeItem *parent() const { return parentItem; }
 		void setParentItem(TreeItem *parent) { parentItem = parent; }
+		
+		void appendChild(TreeItem *child);
+		TreeItem *child(int row);
+		int childCount() const;
+		int row() const;
 
 		QVariant data(int role) const;
 		void setData(int column, int role, const QVariant &value);
 
-		int row() const;
 		virtual void render(Renderer *renderer) = 0;
 		virtual void draw(Renderer *renderer) = 0;
 		virtual void calculateBorders(BorderStruct &borders) = 0;
@@ -45,23 +49,19 @@ class TreeItem
 		
 		virtual QIcon icon() const { return QIcon(); }
 	
-	public:
-		void appendChild(TreeItem *child);
-		TreeItem *child(int row);
-		int childCount() const;
-
-	public:
 		const QString &objectName() const { return m_objectName; }
 		void setObjectName(QString name) { m_objectName = name; }
 
 	private:
-		bool m_checked;
 		QString m_objectName;
 
 		TreeItem *parentItem;
 		std::list<ItemParams> viewParams;
 		
 		QList<TreeItem*> children;
+		
+	protected:
+		bool m_checked;
 };
 
 #endif

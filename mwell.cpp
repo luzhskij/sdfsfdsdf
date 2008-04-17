@@ -81,18 +81,21 @@ void MWell::addNode(WellNode node)
 	}
 }
 
-MFolder *MWell::readFromXYZ(QString fileName)
+MWellsDataContainer::MWellsDataContainer(QString fileName)
 {
 	QFile file(fileName);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-		return 0;
+		return;
 
 	QTextStream in(&file);
 	in.setCodec("CP-1251");
 	
 	MColorGenerator colorGenerator;
 	
-	MFolder *wellFolder = new MFolder(MObject::getFileName(fileName));
+	this->setObjectName(MObject::getFileName(fileName));
+	MFolder *wellFolder = new MFolder("wells");
+	MGlobalWellLogsFolder *globalWellLogsFolder = new MGlobalWellLogsFolder();
+	globalWellLogsFolder->setObjectName("Global well logs");
 	MWell *newWell = NULL;
 	QString line = in.readLine();
 	while (!in.atEnd())
@@ -141,5 +144,24 @@ MFolder *MWell::readFromXYZ(QString fileName)
 			}
 		}
 	}
-	return wellFolder;
+	
+	this->appendChild(globalWellLogsFolder);
+	this->appendChild(wellFolder);
+}
+
+MWellsDataContainer::~MWellsDataContainer()
+{
+}
+
+MGlobalWellLogsFolder::MGlobalWellLogsFolder()
+{
+}
+
+MGlobalWellLogsFolder::~MGlobalWellLogsFolder()
+{
+}
+
+void MGlobalWellLogsFolder::setChecked(bool checkState, bool recursive)
+{
+	m_checked = checkState;
 }
